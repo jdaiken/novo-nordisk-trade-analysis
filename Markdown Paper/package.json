@@ -1,0 +1,11 @@
+{
+  "name": "novo-nordisk-pdf-export",
+  "version": "1.0.0",
+  "description": "Export Novo Nordisk Trade Analysis HTML to PDF via Puppeteer",
+  "scripts": {
+    "export": "node export_pdf.js"
+  },
+  "dependencies": {
+    "puppeteer": "^21.0.0"
+  }
+}
