@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Novo Nordisk and the New Era of Pharmaceutical Trade Disruption</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap');
+
+  :root {
+    --navy: #0f2744;
+    --navy-mid: #1a3a5c;
+    --navy-light: #2a5080;
+    --teal: #0e8a7a;
+    --teal-light: #14b8a6;
+    --gold: #c8922a;
+    --gold-light: #f0b959;
+    --red: #c0392b;
+    --bg: #faf9f7;
+    --surface: #ffffff;
+    --border: #e2ddd6;
+    --text: #1a1612;
+    --text-mid: #4a4540;
+    --text-light: #8a847e;
+    --rule: #c8b89a;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Source Serif 4', Georgia, serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 16px;
+    line-height: 1.75;
+  }
+
+  /* ── PAGE CHROME ── */
+  .header-bar {
+    background: var(--navy);
+    padding: 10px 0;
+    text-align: center;
+  }
+  .header-bar span {
+    font-family: 'DM Sans', sans-serif;
+    color: rgba(255,255,255,0.55);
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+  }
+
+  .page {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 40px 80px;
+  }
+
+  /* ── TITLE BLOCK ── */
+  .title-block {
+    padding: 56px 0 40px;
+    border-bottom: 2px solid var(--navy);
+    margin-bottom: 48px;
+  }
+  .eyebrow {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 18px;
+  }
+  h1.main-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 38px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--navy);
+    margin-bottom: 20px;
+    max-width: 740px;
+  }
+  .subtitle-line {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    color: var(--text-light);
+    letter-spacing: 1px;
+  }
+
+  /* ── SECTION HEADINGS ── */
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--navy);
+    margin: 44px 0 16px;
+    padding-bottom: 10px;
+    border-bottom: 1.5px solid var(--rule);
+  }
+  h2 .section-label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 10px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--teal);
+    display: block;
+    margin-bottom: 4px;
+  }
+  h3 {
+    font-family: 'Source Serif 4', serif;
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--navy-mid);
+    margin: 28px 0 10px;
+  }
+
+  /* ── BODY TEXT ── */
+  p {
+    margin-bottom: 18px;
+    color: var(--text);
+    font-weight: 300;
+  }
+  strong, b { font-weight: 600; color: var(--navy); }
+  em { font-style: italic; }
+  u { text-decoration: underline; text-decoration-color: var(--teal); }
+
+  /* ── CONCEPT TERMS ── */
+  .concept {
+    font-weight: 600;
+    text-decoration: underline;
+    text-decoration-color: var(--teal);
+    color: var(--navy);
+  }
+
+  /* ── STAT CALLOUTS ── */
+  .stat-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin: 32px 0 36px;
+  }
+  .stat-card {
+    background: var(--navy);
+    border-radius: 4px;
+    padding: 20px 16px;
+    text-align: center;
+  }
+  .stat-card .num {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--gold-light);
+    display: block;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .stat-card .lbl {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    color: rgba(255,255,255,0.65);
+    letter-spacing: 0.5px;
+    line-height: 1.4;
+  }
+
+  /* ── CHART CONTAINERS ── */
+  .chart-wrap {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 28px 28px 20px;
+    margin: 28px 0 36px;
+  }
+  .chart-title {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--text-light);
+    margin-bottom: 20px;
+  }
+  .chart-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin: 28px 0 36px;
+  }
+  .chart-row .chart-wrap { margin: 0; }
+
+  /* ── DISRUPTION TIMELINE ── */
+  .disruption-timeline {
+    margin: 28px 0 36px;
+  }
+  .disruption-item {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 0;
+    position: relative;
+  }
+  .disruption-item:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    left: 20px;
+    top: 42px;
+    width: 2px;
+    height: calc(100% - 2px);
+    background: var(--border);
+  }
+  .d-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    color: white;
+    flex-shrink: 0;
+    z-index: 1;
+  }
+  .d-icon.tariff { background: var(--red); }
+  .d-icon.mfn { background: var(--gold); }
+  .d-icon.rfk { background: var(--navy-mid); }
+  .d-body {
+    padding-bottom: 28px;
+    flex: 1;
+  }
+  .d-label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-mid);
+    margin-bottom: 2px;
+  }
+  .d-headline {
+    font-family: 'Source Serif 4', serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 4px;
+  }
+  .d-impact {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    color: var(--text-light);
+  }
+
+  /* ── DECISION TABLES ── */
+  .decision-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    margin: 20px 0 32px;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .decision-table th {
+    background: var(--navy);
+    color: white;
+    padding: 10px 14px;
+    text-align: left;
+    font-weight: 500;
+    font-size: 12px;
+    letter-spacing: 0.3px;
+  }
+  .decision-table th:first-child { width: 110px; background: var(--navy-mid); }
+  .decision-table td {
+    padding: 10px 14px;
+    vertical-align: top;
+    border: 1px solid var(--border);
+    line-height: 1.5;
+    color: var(--text);
+  }
+  .decision-table td:first-child {
+    background: #eef3f8;
+    font-weight: 600;
+    color: var(--navy-mid);
+    font-size: 12px;
+  }
+  .decision-table tr:nth-child(even) td:not(:first-child) { background: #fafafa; }
+  .decision-table .final-row td { background: #e8f5f3; border-top: 2px solid var(--teal); }
+  .decision-table .final-row td:first-child { background: var(--teal); color: white; font-size: 12px; }
+  .decision-table .rec-badge {
+    display: inline-block;
+    background: var(--teal);
+    color: white;
+    font-size: 10px;
+    padding: 2px 7px;
+    border-radius: 3px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    margin-bottom: 5px;
+  }
+  .decision-table ul { padding-left: 16px; margin: 0; }
+  .decision-table li { margin-bottom: 3px; }
+
+  /* ── PHASE ROADMAP ── */
+  .roadmap {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    margin: 28px 0 36px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .phase {
+    padding: 24px 20px;
+    position: relative;
+  }
+  .phase:not(:last-child) { border-right: 1px solid var(--border); }
+  .phase-1 { background: var(--navy); }
+  .phase-2 { background: var(--navy-mid); }
+  .phase-3 { background: var(--navy-light); }
+  .phase-label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.55);
+    margin-bottom: 4px;
+  }
+  .phase-time {
+    font-family: 'Playfair Display', serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--gold-light);
+    margin-bottom: 8px;
+  }
+  .phase-title {
+    font-family: 'Source Serif 4', serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: white;
+    margin-bottom: 12px;
+    line-height: 1.3;
+  }
+  .phase-items {
+    list-style: none;
+    padding: 0;
+  }
+  .phase-items li {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    color: rgba(255,255,255,0.75);
+    margin-bottom: 6px;
+    padding-left: 14px;
+    position: relative;
+    line-height: 1.4;
+  }
+  .phase-items li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--teal-light);
+  }
+
+  /* ── REFERENCES ── */
+  .references {
+    margin-top: 48px;
+    padding-top: 28px;
+    border-top: 2px solid var(--navy);
+  }
+  .references h2 { border-bottom: none; margin-top: 0; padding-bottom: 0; }
+  .ref-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+  }
+  .ref-list li {
+    font-size: 14px;
+    font-family: 'DM Sans', sans-serif;
+    color: var(--text-mid);
+    margin-bottom: 14px;
+    padding-left: 24px;
+    text-indent: -24px;
+    line-height: 1.55;
+  }
+  .ref-list a { color: var(--teal); text-decoration: none; }
+  .ref-list a:hover { text-decoration: underline; }
+
+  /* ── FOOTER ── */
+  .footer {
+    margin-top: 64px;
+    padding: 20px 0;
+    border-top: 1px solid var(--border);
+    text-align: center;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    color: var(--text-light);
+    letter-spacing: 0.5px;
+  }
+
+  /* ── QUARTO CALLOUT STYLE ── */
+  .callout {
+    border-left: 4px solid var(--teal);
+    background: #f0faf9;
+    padding: 14px 18px;
+    margin: 24px 0;
+    border-radius: 0 4px 4px 0;
+  }
+  .callout .callout-label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 6px;
+  }
+  .callout p { margin: 0; font-size: 14px; color: var(--text-mid); }
+
+  canvas { max-width: 100%; }
+
+  .cite-link {
+    color: var(--teal);
+    text-decoration: none;
+    font-style: normal;
+    border-bottom: 1px dotted var(--teal);
+    transition: color 0.15s, border-color 0.15s;
+  }
+  .cite-link:hover {
+    color: var(--navy);
+    border-bottom-color: var(--navy);
+  }
+  /* Highlight a ref entry when jumped to */
+  .ref-list li:target {
+    background: #e8f5f3;
+    outline: 2px solid var(--teal);
+    outline-offset: 4px;
+    border-radius: 3px;
+  }
+
+</style>
+</head>
+<body>
+
+<div class="header-bar">
+  <span>BUS 280 &nbsp;·&nbsp; International Business &nbsp;·&nbsp; Course Project</span>
+</div>
+
+<div class="page">
+
+  <!-- TITLE -->
+  <div class="title-block">
+    <div class="eyebrow">Trade Disruption Analysis</div>
+    <h1 class="main-title">Novo Nordisk and the New Era of Pharmaceutical Trade Disruption</h1>
+    <div class="subtitle-line">John Aiken &nbsp;·&nbsp; BUS 280</div>
+  </div>
+
+  <!-- A. INDUSTRY & COMPANY OVERVIEW -->
+  <h2><span class="section-label">Section A</span>Industry &amp; Company Overview</h2>
+
+  <p>The global pharmaceutical industry is one of the most trade-sensitive sectors in the world economy, subject to complex regulatory approval, patent protections, and government pricing controls across every major market. Within this environment, the market for GLP-1 (glucagon-like peptide-1) receptor agonists has become the fastest growing industry and perhaps one of the most controversial segments of medications. GLP-1 medications were originally developed for type 2 diabetes treatment and have since gained notoriety that have revolutionized obesity treatment. Especially in countries such as the United States, this market had generated enormous commercial growth.</p>
+
+  <p>Novo Nordisk A/S, headquartered in Bagsværd, Denmark, is one of Europe's most valuable publicly traded companies by market capitalization. Novo Nordisk is also a global leader in diabetes and obesity care. According to its 2025 annual report, the company was founded in 1923, and built its foundation on insulin manufacturing, where it still holds roughly 33.7% of the global diabetes market by value (<a href="#ref-nn2025a" class="cite-link">Novo Nordisk, 2025a</a>). However, according to its most recent 10K filings and its annual report, its recent growth is almost entirely attributable to two GLP-1 drugs: Ozempic (injectable semaglutide for type 2 diabetes), which exceeded DKK 120 billion in global sales in 2024, and Wegovy (injectable semaglutide for obesity), which reached DKK 58 billion with 86% year-over-year growth in just its fourth year on the market (<a href="#ref-nn2025a" class="cite-link">Novo Nordisk, 2025a</a>). Novo Nordisk's most recent annual report indicated that total company sales reached DKK 290.4 billion (approximately $41 billion USD) in 2024. This upward shift in sales is up 25% from 2023 with Obesity Care growing 57% at constant exchange rates as part of its portfolio (<a href="#ref-nn2025b" class="cite-link">Novo Nordisk, 2025b</a>). The company employs over 75,000 people across 80 different countries and markets its products in approximately 170 countries (<a href="#ref-nn2025a" class="cite-link">Novo Nordisk, 2025a</a>).</p>
+
+  <p>The United States represents approximately 50% of Novo Nordisk's global revenue, making it by far the company's single most critical market (<a href="#ref-nn2025a" class="cite-link">Novo Nordisk, 2025a</a>). This analysis demonstrates that given the increased interest in drugs such as Wegovy, this concentration creates both extraordinary commercial opportunity and significant political risk for both the United States and Europe.</p>
+
+  <!-- KEY STATS -->
+  <div class="stat-row">
+    <div class="stat-card"><span class="num">DKK 290B</span><span class="lbl">Total 2024 Sales (~$41B USD)</span></div>
+    <div class="stat-card"><span class="num">+25%</span><span class="lbl">Revenue growth vs. 2023</span></div>
+    <div class="stat-card"><span class="num">50%</span><span class="lbl">Revenue from U.S. market</span></div>
+    <div class="stat-card"><span class="num">75,000+</span><span class="lbl">Employees in 80 countries</span></div>
+  </div>
+
+  <!-- CHART: Revenue Breakdown -->
+  <div class="chart-row">
+    <div class="chart-wrap">
+      <div class="chart-title">2024 Product Revenue — Key Products (DKK Billions)</div>
+      <canvas id="productChart" height="220"></canvas>
+    </div>
+    <div class="chart-wrap">
+      <div class="chart-title">Geographic Revenue Split — U.S. vs. Rest of World</div>
+      <canvas id="geoChart" height="220"></canvas>
+    </div>
+  </div>
+
+  <!-- B. TRADE DISRUPTION ANALYSIS -->
+  <h2><span class="section-label">Section B</span>Trade Disruption Analysis</h2>
+
+  <p>As part of its ever-shifting trade policy, the second Trump administration deployed an unprecedented and inconsistent policy assault on foreign pharmaceutical manufacturers, this strategy seemed to include three distinct but interconnected <span class="concept">trade barriers</span> that included government-imposed restrictions (including tariffs) that increase the cost or difficulty of international commerce. The impact of this trade policy is still very much ongoing and seemingly lacking any cohesive contours, but it certainly has redefined the trade relationship between the United States and Europe.</p>
+
+  <p>First, the administration threatened 100% tariffs on certain imported pharmaceuticals, with a stated October 1, 2025, effective date (<a href="#ref-tankersley" class="cite-link">Tankersley, 2025</a>). Since the overwhelming majority of Novo Nordisk's active pharmaceutical ingredient production is located in Denmark (Kalundborg, Hillerød, Gentofte) and France (Chartres), such tariffs would have functionally doubled the landed cost of its products in the United States (<a href="#ref-nn2025a" class="cite-link">Novo Nordisk, 2025a</a>). Second, the administration implemented a "Most Favored Nation" (MFN) pricing requirements, mandating that all domestic and international pharmaceutical companies charge U.S. government programs no more than the lowest price they offer to any other developed nation (<a href="#ref-whitehouse" class="cite-link">The White House, 2025</a>). This directly limited the industry's longstanding practice of charging significantly higher U.S. prices relative to price-regulated European markets and caused even more ambiguity in Novo Nordisk's effort to redefine its trade policy in the US. Furthermore, for Novo Nordisk, the 2024 Form 20-F already disclosed that U.S. net prices after rebates declined in 2024 due to payer pressure which is a natural force of the market. MFN requirements threatened to accelerate and formalize this erosion even faster which may have made it not necessarily profitable or prudent to export to the U.S. at its current volume (<a href="#ref-nn2025a" class="cite-link">Novo Nordisk, 2025a</a>). Third, Health and Human Services Secretary Robert F. Kennedy Jr. publicly criticized GLP-1 medications as enabling overconsumption rather than treating disease, creating regulatory uncertainty around coverage decisions, FDA approvals for new indications, and broader public perception. The broader concern from the U.S. side is changes to pharmaceutical policy in insurance coverage under the Centers for Medicaid and Medicare (CMS) could make obtaining GLP-1 medications devastating.</p>
+
+  <p>The industry-wide impact has been significant. American rival pharmaceutical company Eli Lilly (which manufactures its GLP-1 competitor Mounjaro) domestically gained the both political favor and cost advantages from policies targeting foreign manufacturers (<a href="#ref-kimball" class="cite-link">Kimball, 2025</a>). Simultaneously, compounding pharmacies exploited supply shortages to produce cheaper unauthorized versions of GLP-1 active ingredients, fragmenting the market and undermining Novo Nordisk's premium pricing position (<a href="#ref-nn2025a" class="cite-link">Novo Nordisk, 2025a</a>).</p>
+
+  <!-- DISRUPTION TIMELINE VISUAL -->
+  <div class="chart-wrap">
+    <div class="chart-title">Three-Vector Trade Disruption — Policy Timeline &amp; Impact</div>
+    <div class="disruption-timeline">
+      <div class="disruption-item">
+        <div class="d-icon tariff">1</div>
+        <div class="d-body">
+          <div class="d-label">Sept 2025 &nbsp;→&nbsp; Oct 1, 2025 deadline</div>
+          <div class="d-headline">100% Pharmaceutical Import Tariffs</div>
+          <div class="d-impact">Would double landed cost of Danish/French-made products in the U.S. — threatening Ozempic and Wegovy price competitiveness overnight.</div>
+        </div>
+      </div>
+      <div class="disruption-item">
+        <div class="d-icon mfn">2</div>
+        <div class="d-body">
+          <div class="d-label">Nov 2025 &nbsp;·&nbsp; Executive Order</div>
+          <div class="d-headline">Most Favored Nation (MFN) Pricing Mandate</div>
+          <div class="d-impact">Government programs must pay no more than the lowest international price. Threatened to cut U.S. government-program margins by up to 82% (<a href="#ref-whitehouse" class="cite-link">The White House, 2025</a>).</div>
+        </div>
+      </div>
+      <div class="disruption-item">
+        <div class="d-icon rfk">3</div>
+        <div class="d-body">
+          <div class="d-label">2025 &nbsp;·&nbsp; Ongoing</div>
+          <div class="d-headline">HHS Ideological Opposition (RFK Jr.)</div>
+          <div class="d-impact">Secretary Kennedy's public criticism of GLP-1s as "lifestyle drugs" created regulatory uncertainty around FDA approvals, CMS coverage, and public perception.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- C. CHALLENGE IDENTIFICATION -->
+  <h2><span class="section-label">Section C</span>Challenge Identification</h2>
+
+  <h3>Challenge 1: Tariff Exposure and Government Pricing Pressure</h3>
+  <p>As stated above, with nearly half of global revenue sourced from the United States and nearly all production based in Europe, Novo Nordisk faced an unprecedented market-access crisis (<a href="#ref-nn2025a" class="cite-link">Novo Nordisk, 2025a</a>). A 100% tariff would have made its products economically uncompetitive overnight to the United States (<a href="#ref-tankersley" class="cite-link">Tankersley, 2025</a>), while simultaneous MFN pricing requirements threatened to shrink government-program margins (for instance CMS coverage) by up to 82% (<a href="#ref-whitehouse" class="cite-link">The White House, 2025</a>). The company needs an immediate strategy to preserve U.S. market access without sacrificing its ability to fund its global capacity expansion already underway (<a href="#ref-nn2025a" class="cite-link">Novo Nordisk, 2025a</a>). Recall this expansion began prior to the second Trump Administration meaning any strategic development was interrupted by unforeseen events.</p>
+
+  <h3>Challenge 2: Competitive Disruption from Eli Lilly and Compounding Pharmacies</h3>
+  <p>Even setting aside government policy, Novo Nordisk faces intensifying structural competition with American companies gaining the upper hand. Eli Lilly's Mounjaro compete directly in the GLP-1 pharma space with clinical data showing comparable or superior outcomes in some trials. Additionally, compounding pharmacies began producing cheap unbranded generics during the previous shortage periods a threat enabled by Novo Nordisk's own supply chain constraints (<a href="#ref-nn2025a" class="cite-link">Novo Nordisk, 2025a</a>). Additionally RFK Jr.'s ideological opposition (definitely an unseen factor in strategic planning) to these medications adds a further layer of market risk by potentially suppressing overall demand regardless of which company supplies the drug.</p>
+
+  <!-- COMPETITIVE LANDSCAPE CHART -->
+  <div class="chart-wrap">
+    <div class="chart-title">Competitive Pressure Map — Novo Nordisk vs. Key Threats</div>
+    <canvas id="radarChart" height="260"></canvas>
+  </div>
+
+  <!-- D. STRATEGIC SOLUTIONS & DECISION TABLES -->
+  <h2><span class="section-label">Section D</span>Strategic Solutions &amp; Decision Tables</h2>
+
+  <h3>Challenge 1: Tariff Exposure and Government Pricing Pressure</h3>
+  <p><em>Note: The facts and statistics used in this table derive from Novo Nordisk's most recent annual report.</em></p>
+
+  <table class="decision-table">
+    <thead>
+      <tr>
+        <th></th>
+        <th>Solution A: Negotiate &amp; Accept Price Concessions</th>
+        <th>Solution B: Supply Chain Diversification</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Description</td>
+        <td>Accept significant U.S. price reductions and commit to domestic manufacturing investment in exchange for tariff exemptions and regulatory stability.</td>
+        <td>Maintain current pricing while shifting production to non-European locations (e.g., Singapore, Ireland) to sidestep tariffs targeting Danish imports.</td>
+      </tr>
+      <tr>
+        <td>Pros</td>
+        <td><ul>
+          <li>Eliminates tariff risk immediately</li>
+          <li>Builds political goodwill with administration</li>
+          <li>Lower prices expand patient volume</li>
+          <li>Secures Medicare/Medicaid coverage</li>
+        </ul></td>
+        <td><ul>
+          <li>Preserves premium pricing</li>
+          <li>Avoids precedent of capitulation</li>
+          <li>Adds geographic supply resilience</li>
+        </ul></td>
+      </tr>
+      <tr>
+        <td>Cons</td>
+        <td><ul>
+          <li>Drastically shrinks profit margins</li>
+          <li>$10B U.S. manufacturing commitment required</li>
+          <li>May set precedent for future demands</li>
+        </ul></td>
+        <td><ul>
+          <li>Takes years to build new facilities</li>
+          <li>Doesn't address MFN pricing pressure</li>
+          <li>Quality risk across new sites</li>
+        </ul></td>
+      </tr>
+      <tr class="final-row">
+        <td>Final Choice</td>
+        <td colspan="2">
+          <span class="rec-badge">✔ RECOMMENDED: Solution A</span><br>
+          The November 2025 deal Novo Nordisk struck proves this approach works. By accepting up to 82% price cuts for government programs and committing $10B to U.S. manufacturing, the company eliminated the tariff threat entirely (<a href="#ref-kimball" class="cite-link">Kimball, 2025</a>; <a href="#ref-whitehouse" class="cite-link">The White House, 2025</a>). Solution B's multi-year build timeline could not address the October 2025 deadline (<a href="#ref-tankersley" class="cite-link">Tankersley, 2025</a>), and it ignores the MFN pricing problem altogether. The volume gains from lower prices also partially offset margin compression.
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Challenge 2: Competitive Disruption from Eli Lilly and Compounding Pharmacies</h3>
+
+  <table class="decision-table">
+    <thead>
+      <tr>
+        <th></th>
+        <th>Solution A: Accelerate Pipeline Innovation</th>
+        <th>Solution B: Market Education &amp; Legal Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Description</td>
+        <td>Fast track next generation GLP-1 products including staying ahead of Eli Lilly and compounders through oral formulations, CagriSema, and new indications.</td>
+        <td>Launch public education campaigns on GLP-1 clinical evidence and pursue legal enforcement against unauthorized compounding pharmacies.</td>
+      </tr>
+      <tr>
+        <td>Pros</td>
+        <td><ul>
+          <li>Ensures leading competitor status</li>
+          <li>Oral pills nearly impossible for compounders to replicate</li>
+          <li>New indications counter RFK Jr.'s narrative</li>
+          <li>Patent protection extends to 2037 (CagriSema)</li>
+        </ul></td>
+        <td><ul>
+          <li>Directly counters ideological opposition</li>
+          <li>Lower cost vs. full R&amp;D investment</li>
+          <li>Legal action may curb compounding</li>
+        </ul></td>
+      </tr>
+      <tr>
+        <td>Cons</td>
+        <td><ul>
+          <li>Multi-year development timelines</li>
+          <li>R&amp;D costs are high with uncertain outcomes</li>
+          <li>Eli Lilly pursuing identical innovations</li>
+        </ul></td>
+        <td><ul>
+          <li>Attacking cheaper alternatives creates PR risk</li>
+          <li>Does not differentiate from Eli Lilly</li>
+          <li>Marketing alone unlikely to shift RFK Jr.'s views</li>
+        </ul></td>
+      </tr>
+      <tr class="final-row">
+        <td>Final Choice</td>
+        <td colspan="2">
+          <span class="rec-badge">✔ RECOMMENDED: Solution A</span><br>
+          Innovation is the only path to sustainable competitive advantage. The 2024 Form 20-F confirms oral semaglutide (25mg/50mg) completed Phase 3 for obesity in 2024 and received FDA approval in late 2025 for January 2026 launch—a product compounders cannot easily replicate (<a href="#ref-nn2025a" class="cite-link">Novo Nordisk, 2025a</a>). CagriSema showed 22.7% weight loss in REDEFINE 1 trials, and Alzheimer's/MASH trials reframe semaglutide as a broad therapeutic platform (<a href="#ref-nn2025b" class="cite-link">Novo Nordisk, 2025b</a>). Solution B creates no differentiation from Eli Lilly.
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- E. ANALYSIS OF SPECIFIC TRADE ISSUES -->
+  <h2><span class="section-label">Section E</span>Analysis of Specific Trade Issues</h2>
+
+  <h3>Foreign Direct Investment (FDI)</h3>
+  <p>Novo Nordisk's $10 billion commitment to U.S. manufacturing facilities is a textbook case of <span class="concept">foreign direct investment (FDI)</span> where a company in one country establishes ownership of productive assets in another. Traditionally, Novo Nordisk's FDI followed an efficiency-seeking logic business model that included concentrating the medication's expensive production in Denmark where specialized biotech expertise, regulatory certainty, and a century of institutional knowledge create genuine advantages. The company's main production facility in Kalundborg Denmark alone houses the world's most advanced GLP-1 production infrastructure (<a href="#ref-nn2025a" class="cite-link">Novo Nordisk, 2025a</a>).</p>
+
+  <p>The Trump administration's tariff threats forced a strategic pivot toward <span class="concept">market-seeking FDI</span> investment motivated not by production efficiency but by the need to access and retain a specific market. The company's U.S. expansion to Clayton, North Carolina (expected operational 2029) and the Catalent fill-finish site acquisition ($11.7 billion, December 2024) together represent Novo Nordisk choosing market security over production efficiency (<a href="#ref-nn2025a" class="cite-link">Novo Nordisk, 2025a</a>). This illustrates a key principle that when political risk makes a market inaccessible, FDI becomes a defensive tool rather than a cost-optimization strategy. It remains to be seen if Novo Nordisk remains competitive in the U.S. or decides to pivot its efforts to more favorable trade climates.</p>
+
+  <h3>Comparative Advantage</h3>
+  <p>The concept of <span class="concept">comparative advantage</span> advanced by David Ricardo that nations and firms should specialize in activities where their relative productivity is highest explains why Novo Nordisk built its production base in Denmark. Denmark long known for its world class biotech workforce, strong intellectual property rights, and decades of accumulated manufacturing expertise gave the company a genuine comparative advantage in producing complex biologic drugs that only the U.S. and Germany possess. The semaglutide molecule used to produce GLP-1 pharmaceuticals requires advanced protein engineering that cannot be easily replicated elsewhere (<a href="#ref-nn2025b" class="cite-link">Novo Nordisk, 2025b</a>).</p>
+
+  <p>However, the Trump administration's 100% tariff threat represents a government-imposed distortion of comparative advantage that no company could have foreseen. This forced Novo Nordisk to adapt to trade policy in order to artificially redirect production toward less efficient domestic locations (i.e. North Carolina) regardless of where it can be done best (<a href="#ref-tankersley" class="cite-link">Tankersley, 2025</a>). Novo Nordisk's response (accepting higher manufacturing costs in the U.S.) is a direct acknowledgment that political risk can override economic logic in the short term, even for a company with objectively superior production capabilities in its home country. The United States in contrast should consider whether this short-term pivot will in fact pay off for the market or end up costing American consumers more in the long run.</p>
+
+  <h3>Non-Tariff Trade Barriers and Strategic Trade Policy</h3>
+  <p>The MFN pricing requirement announced by the Trump administration illustrates how modern <span class="concept">non-tariff trade barriers</span> restrictions beyond simple import duties can be more damaging than tariffs alone. By mandating price parity between the U.S. and lower-cost markets, MFN requirements effectively export foreign price controls into the U.S. market without formally restricting trade volumes which is a central tenant to the trade theory covered in Chapter 6 and 7 of our text (<a href="#ref-hill" class="cite-link">Hill, Chapter 6 and 7</a>). This is economically equivalent to a revenue tax on foreign pharmaceutical companies but without any real clear strategy on the part of the administration. Inevitably, the cost will be passed on to the American consumer as we've started to see with the administration's tariff policy.</p>
+
+  <p>The broader policy context reflected here is <span class="concept">strategic trade policy</span> where government intervention is deliberately structured to advantage domestic firms (Eli Lilly) at the expense of foreign ones (Novo Nordisk). By exempting U.S. manufacturers from tariff exposure while targeting European importers, the administration created artificial competitive advantages that no amount of corporate efficiency could fully offset (<a href="#ref-kimball" class="cite-link">Kimball, 2025</a>). This is precisely the scenario that free trade economists argue reduces global welfare production shifts not to where it is most efficient, but to where it is most politically protected. Most concerning this creates a similar posture to the Smoot Hawley tariff scheme covered in Chapter 7 and 8 of our text (<a href="#ref-hill" class="cite-link">Hill, Chapter 7, 8</a>).</p>
+
+  <!-- F. TRADE STRATEGY RECOMMENDATION -->
+  <h2><span class="section-label">Section F</span>Trade Strategy Recommendation</h2>
+
+  <p>Novo Nordisk's best path forward is a three-phase integrated strategy grounded in the data disclosed in its 2024 Form 20-F and Annual Report (<a href="#ref-nn2025a" class="cite-link">Novo Nordisk, 2025a</a>; <a href="#ref-nn2025b" class="cite-link">Novo Nordisk, 2025b</a>). The company has already implemented portions of phase 1 and the results are yet to be seen but if the company wishes to remain within the United States it may consider the following options below.</p>
+
+  <!-- PHASE ROADMAP -->
+  <div class="roadmap">
+    <div class="phase phase-1">
+      <div class="phase-label">Phase 1</div>
+      <div class="phase-time">0–12 Months</div>
+      <div class="phase-title">Secure Market Access Through Political Accommodation</div>
+      <ul class="phase-items">
+        <li>Accept up to 82% price cuts for government programs</li>
+        <li>Commit $10B to U.S. manufacturing</li>
+        <li>Secure Medicare/Medicaid coverage at negotiated rates</li>
+        <li>Convert tariff headwind into managed cost</li>
+      </ul>
+    </div>
+    <div class="phase phase-2">
+      <div class="phase-label">Phase 2</div>
+      <div class="phase-time">1–3 Years</div>
+      <div class="phase-title">Embed in the U.S. Economy</div>
+      <ul class="phase-items">
+        <li>Accelerate Clayton, NC facility (target 2029)</li>
+        <li>Build U.S.-centric supply chain</li>
+        <li>Create domestic political constituencies</li>
+        <li>Leverage Catalent acquisition for speed</li>
+      </ul>
+    </div>
+    <div class="phase phase-3">
+      <div class="phase-label">Phase 3</div>
+      <div class="phase-time">3–5 Years</div>
+      <div class="phase-title">Innovate Beyond the 2032 Patent Cliff</div>
+      <ul class="phase-items">
+        <li>Oral Wegovy (FDA-approved, launched Jan 2026)</li>
+        <li>CagriSema: 22.7% weight loss, patent to 2037</li>
+        <li>Alzheimer's &amp; MASH indications</li>
+        <li>Retain EU + neutral-market capacity</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Phase 1 — Immediate (0–12 months): Secure Market Access Through Political Accommodation</h3>
+  <p>The company should finalize and deliver on the November 2025 agreement with the Trump administration to accept price reductions of up to 82% for government programs, commit to $10 billion in U.S. manufacturing, and secure Medicare/Medicaid coverage at negotiated rates (<a href="#ref-kimball" class="cite-link">Kimball, 2025</a>; <a href="#ref-whitehouse" class="cite-link">The White House, 2025</a>). While this definitely hurts profit margins, this is the right short-term solution despite having to capitulate. The company already disclosed in the Form 20-F that U.S. net prices were declining due to payer pressure regardless of administration policy (<a href="#ref-nn2025a" class="cite-link">Novo Nordisk, 2025a</a>). By accepting formalized concessions in exchange for tariff exemptions and regulatory predictability converts an uncontrollable headwind into a managed cost even if the administration's policy is incoherent. Lower prices also expand the addressable patient population and may even lend it to better domestic insurance coverage.</p>
+
+  <h3>Phase 2 — Medium Term (1–3 years): Embed in the U.S. Economy</h3>
+  <p>Accelerate the building of the Clayton, North Carolina facility expansion (target operational 2029) and build a U.S. centric supply chain by sourcing components and raw materials domestically where feasible (<a href="#ref-nn2025a" class="cite-link">Novo Nordisk, 2025a</a>). Every American supplier, worker, and community stakeholder created becomes a political constituency defending Novo Nordisk's market position against future policy reversals. The Catalent fill-finish acquisition already demonstrates this logic by acquiring existing U.S. infrastructure is faster and politically more visible than greenfield construction (<a href="#ref-nn2025a" class="cite-link">Novo Nordisk, 2025a</a>).</p>
+
+  <h3>Phase 3 — Long Term (3–5 years): Innovate Beyond the 2032 Patent Cliff</h3>
+  <p>Novo Nordisk's semaglutide compound patent expires in 2032 (<a href="#ref-nn2025a" class="cite-link">Novo Nordisk, 2025a</a>). With eight years remaining, Novo Nordisk must create successor products with independent patent protection. The Form 20-F pipeline discloses the key candidates: (1) Oral semaglutide (Wegovy pill), FDA-approved in late 2025 for January 2026 U.S. launch, oral formulations are structurally difficult for compounding pharmacies to replicate; (2) CagriSema, demonstrated 22.7% weight loss in patient. These long term programs that reframe GLP-1s as broad therapeutic platform drugs, directly countering RFK Jr.'s characterization of these as lifestyle medications (<a href="#ref-nn2025a" class="cite-link">Novo Nordisk, 2025a</a>; <a href="#ref-nn2025b" class="cite-link">Novo Nordisk, 2025b</a>).</p>
+
+  <p>Throughout all three phases, Novo Nordisk should retain European manufacturing capacity and develop secondary production in politically neutral markets (Ireland, Singapore) as contingency against future U.S. policy shifts. The Novo Nordisk Foundation's controlling 76% voting stake which currently prevents hostile acquisition. Additionally this provides the institutional patience required to execute a decade-long strategy of this complexity (<a href="#ref-nn2025a" class="cite-link">Novo Nordisk, 2025a</a>).</p>
+
+  <!-- PATENT CLIFF CHART -->
+  <div class="chart-wrap">
+    <div class="chart-title">Pipeline Innovation Timeline — Patent Protection vs. 2032 Semaglutide Expiry</div>
+    <canvas id="pipelineChart" height="200"></canvas>
+  </div>
+
+  <!-- G. REFERENCES -->
+  <div class="references">
+    <h2><span class="section-label">Section G</span>References</h2>
+    <ul class="ref-list">
+      <li id="ref-brookings">Brookings Institution. (2025, October 1). Will pharmaceutical tariffs achieve their goals? <em>Brookings Institution</em>. <a href="https://www.brookings.edu/articles/pharmaceutical-tariffs-how-they-play-out/" target="_blank">https://www.brookings.edu/articles/pharmaceutical-tariffs-how-they-play-out/</a></li>
+      <li id="ref-hill">Hill, C. W. L. (2023). <em>International business: Competing in the global marketplace</em> (2025 release). McGraw-Hill Higher Education.</li>
+      <li id="ref-kff2026">KFF. (2026, January 16). Medicaid coverage of and spending on GLP-1s. <em>KFF</em>. <a href="https://www.kff.org/medicaid/medicaid-coverage-of-and-spending-on-glp-1s/" target="_blank">https://www.kff.org/medicaid/medicaid-coverage-of-and-spending-on-glp-1s/</a></li>
+      <li id="ref-kff2025">KFF. (2025, November 26). Understanding the Trump administration's negotiated drug prices for Medicare. <em>KFF</em>. <a href="https://www.kff.org/quick-take/understanding-the-trump-administrations-negotiated-drug-prices-for-medicare/" target="_blank">https://www.kff.org/quick-take/understanding-the-trump-administrations-negotiated-drug-prices-for-medicare/</a></li>
+      <li id="ref-kimball">Kimball, S. (2025, November 6). Trump announces deals with Eli Lilly, Novo Nordisk to slash weight loss drug prices, offer some Medicare coverage. <em>CNBC</em>. <a href="https://www.cnbc.com/2025/11/06/trump-eli-lilly-novo-nordisk-deal-obesity-drug-prices.html" target="_blank">https://www.cnbc.com/2025/11/06/trump-eli-lilly-novo-nordisk-deal-obesity-drug-prices.html</a></li>
+      <li id="ref-nn2024">Novo Nordisk. (2024, January 31). Company announcement: Financial report for the period 1 January 2023 to 31 December 2023 [Press release]. <a href="https://www.novonordisk.com/news-and-media/news-and-ir-materials/news-details.html?id=167013" target="_blank">https://www.novonordisk.com/news-and-media/news-and-ir-materials/news-details.html?id=167013</a></li>
+      <li id="ref-nn2025a">Novo Nordisk. (2025a, February 5). <em>Form 20-F: Annual report pursuant to Section 13 or 15(d) of the Securities Exchange Act of 1934 for the fiscal year ended December 31, 2024.</em> U.S. Securities and Exchange Commission. <a href="https://annualreport.novonordisk.com/2024/_assets/downloads/novo-nordisk-form-20-f-2024.pdf" target="_blank">https://annualreport.novonordisk.com/2024/_assets/downloads/novo-nordisk-form-20-f-2024.pdf</a></li>
+      <li id="ref-nn2025b">Novo Nordisk. (2025b). <em>Annual report 2024.</em> <a href="https://annualreport.novonordisk.com/2024/" target="_blank">https://annualreport.novonordisk.com/2024/</a></li>
+      <li id="ref-tankersley">Tankersley, J. (2025, September 25). Pharmaceutical tariffs: A 100% tariff on some imported drugs is coming October 1, Trump says. <em>CNN Business</em>. <a href="https://www.cnn.com/2025/09/25/business/imported-pharmaceuticals-tariff-trump" target="_blank">https://www.cnn.com/2025/09/25/business/imported-pharmaceuticals-tariff-trump</a></li>
+      <li id="ref-whitehouse">The White House. (2025, November 6). Fact sheet: President Donald J. Trump announces major developments in bringing most-favored-nation pricing to American patients. <a href="https://www.whitehouse.gov/fact-sheets/2025/11/fact-sheet-president-donald-j-trump-announces-major-developments-in-bringing-most-favored-nation-pricing-to-american-patients/" target="_blank">https://www.whitehouse.gov/fact-sheets/2025/11/...</a></li>
+      <li id="ref-wosinska">Wosińska, M. (2025, October 1). Will pharmaceutical tariffs achieve their goals? <em>Brookings Institution</em>. <a href="https://www.brookings.edu/articles/pharmaceutical-tariffs-how-they-play-out/" target="_blank">https://www.brookings.edu/articles/pharmaceutical-tariffs-how-they-play-out/</a></li>
+    </ul>
+  </div>
+
+  <div class="footer">Novo Nordisk Trade Disruption Analysis &nbsp;·&nbsp; BUS 280 &nbsp;·&nbsp; John Aiken</div>
+</div>
+
+<script>
+const NAVY = '#0f2744';
+const NAVY_MID = '#1a3a5c';
+const NAVY_LIGHT = '#2a5080';
+const TEAL = '#0e8a7a';
+const TEAL_LIGHT = '#14b8a6';
+const GOLD = '#c8922a';
+const GOLD_LIGHT = '#f0b959';
+const RED = '#c0392b';
+const GRAY = '#d0ccc6';
+
+Chart.defaults.font.family = "'DM Sans', sans-serif";
+Chart.defaults.color = '#4a4540';
+
+// ─── CHART 1: Product Revenue Bar ───────────────────────────────────────────
+new Chart(document.getElementById('productChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Ozempic', 'Wegovy', 'Other Diabetes Care', 'Saxenda & Other Obesity', 'Rare Disease'],
+    datasets: [{
+      data: [120, 58, 28.6, 7.1, 30.8],
+      backgroundColor: [NAVY, TEAL, NAVY_LIGHT, TEAL_LIGHT, GRAY],
+      borderWidth: 0,
+      borderRadius: 3,
+    }]
+  },
+  options: {
+    indexAxis: 'y',
+    plugins: { legend: { display: false } },
+    scales: {
+      x: {
+        grid: { color: '#f0ece6' },
+        ticks: { callback: v => 'DKK ' + v + 'B', font: { size: 11 } },
+        title: { display: true, text: 'DKK Billions', font: { size: 11 } }
+      },
+      y: { grid: { display: false }, ticks: { font: { size: 12 } } }
+    }
+  }
+});
+
+// ─── CHART 2: Geographic Donut ───────────────────────────────────────────────
+new Chart(document.getElementById('geoChart'), {
+  type: 'doughnut',
+  data: {
+    labels: ['United States (~50%)', 'Rest of World (~50%)'],
+    datasets: [{
+      data: [50, 50],
+      backgroundColor: [NAVY, TEAL_LIGHT],
+      borderWidth: 0,
+      hoverOffset: 8
+    }]
+  },
+  options: {
+    cutout: '62%',
+    plugins: {
+      legend: {
+        position: 'bottom',
+        labels: { padding: 16, font: { size: 12 }, boxWidth: 14 }
+      }
+    }
+  }
+});
+
+// ─── CHART 3: Competitive Radar ──────────────────────────────────────────────
+new Chart(document.getElementById('radarChart'), {
+  type: 'radar',
+  data: {
+    labels: ['R&D Pipeline Strength', 'U.S. Manufacturing', 'Price Competitiveness', 'Political Favor', 'Brand / Market Share', 'Supply Chain Resilience'],
+    datasets: [
+      {
+        label: 'Novo Nordisk',
+        data: [88, 42, 45, 38, 85, 55],
+        backgroundColor: 'rgba(14, 138, 122, 0.15)',
+        borderColor: TEAL,
+        pointBackgroundColor: TEAL,
+        borderWidth: 2,
+        pointRadius: 4,
+      },
+      {
+        label: 'Eli Lilly',
+        data: [80, 90, 70, 88, 72, 80],
+        backgroundColor: 'rgba(192, 57, 43, 0.10)',
+        borderColor: RED,
+        pointBackgroundColor: RED,
+        borderWidth: 2,
+        pointRadius: 4,
+      },
+      {
+        label: 'Compounding Pharmacies',
+        data: [10, 60, 95, 30, 15, 40],
+        backgroundColor: 'rgba(200, 146, 42, 0.10)',
+        borderColor: GOLD,
+        pointBackgroundColor: GOLD,
+        borderWidth: 2,
+        pointRadius: 4,
+      }
+    ]
+  },
+  options: {
+    plugins: {
+      legend: { position: 'bottom', labels: { padding: 18, font: { size: 12 }, boxWidth: 14 } }
+    },
+    scales: {
+      r: {
+        min: 0, max: 100,
+        ticks: { display: false },
+        grid: { color: '#e2ddd6' },
+        pointLabels: { font: { size: 12 } }
+      }
+    }
+  }
+});
+
+// ─── CHART 4: Pipeline / Patent Timeline ────────────────────────────────────
+new Chart(document.getElementById('pipelineChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Semaglutide (Ozempic/Wegovy)', 'Oral Semaglutide (Wegovy Pill)', 'CagriSema', "Semaglutide — Alzheimer's", 'Semaglutide — MASH'],
+    datasets: [
+      {
+        label: 'Already elapsed',
+        data: [2012, 2025, 2024, 2021, 2022],
+        backgroundColor: 'transparent',
+        borderWidth: 0,
+      },
+      {
+        label: 'Patent / Development Window',
+        data: [20, 15, 13, 14, 13],
+        backgroundColor: [NAVY, TEAL, TEAL_LIGHT, NAVY_LIGHT, GOLD],
+        borderWidth: 0,
+        borderRadius: 3,
+      }
+    ]
+  },
+  options: {
+    indexAxis: 'y',
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        callbacks: {
+          label: ctx => ctx.datasetIndex === 0 ? null : `Active through ~${ctx.raw + [2032,2040,2037,2035,2035][ctx.dataIndex]}`,
+          title: ctx => ctx[0].label
+        }
+      }
+    },
+    scales: {
+      x: {
+        stacked: true,
+        min: 2010,
+        ticks: { callback: v => v, font: { size: 11 } },
+        grid: { color: '#f0ece6' },
+        title: { display: true, text: 'Year', font: { size: 11 } }
+      },
+      y: { stacked: true, grid: { display: false }, ticks: { font: { size: 12 } } }
+    }
+  }
+});
+</script>
+</body>
+</html>
